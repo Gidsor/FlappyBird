@@ -26,7 +26,7 @@ public class PlayState extends State {
 
         tubes = new Array<Tube>();
         for (int i = 1; i <= TUBE_COUNT; i++) {
-            tubes.add(new Tube(TUBE_SPACING + Tube.TUBE_WIDTH));
+            tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
     }
 
@@ -41,12 +41,14 @@ public class PlayState extends State {
     public void update(float dt) {
         handleInput();
         bird.update(dt);
+        camera.position.x = bird.getPosition().x + 80;
 
         for (Tube tube : tubes) {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTopTube().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
         }
+        camera.update();
     }
 
     @Override
@@ -55,8 +57,10 @@ public class PlayState extends State {
         sb.begin();
         sb.draw(background, camera.position.x - (camera.viewportWidth / 2), 0);
         sb.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
-        sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
-        sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
+        for (Tube tube : tubes) {
+            sb.draw(tube.getTopTube(), tube.getPosTopTube().x, tube.getPosTopTube().y);
+            sb.draw(tube.getBottomTube(), tube.getPosBotTube().x, tube.getPosBotTube().y);
+        }
         sb.end();
     }
 

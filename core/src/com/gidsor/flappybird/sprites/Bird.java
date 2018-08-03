@@ -6,6 +6,7 @@ import com.gidsor.flappybird.FlappyBird;
 
 public class Bird {
     public static final int GRAVITY = -15;
+    private static final int MOVEMENT = 100;
     private Vector3 position;
     private Vector3 velosity;
 
@@ -22,7 +23,7 @@ public class Bird {
             velosity.add(0, GRAVITY, 0);
         }
         velosity.scl(dt);
-        position.add(0, velosity.y, 0);
+        position.add(MOVEMENT * dt, velosity.y, 0);
 
         if (position.y < 0) {
             position.y = 0;
