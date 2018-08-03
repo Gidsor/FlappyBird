@@ -2,6 +2,7 @@ package com.gidsor.flappybird.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.gidsor.flappybird.FlappyBird;
 
 public class Bird {
     public static final int GRAVITY = -15;
@@ -17,10 +18,21 @@ public class Bird {
     }
 
     public void update(float dt) {
-        velosity.add(0, GRAVITY, 0);
+        if (position.y > 0) {
+            velosity.add(0, GRAVITY, 0);
+        }
         velosity.scl(dt);
         position.add(0, velosity.y, 0);
+
+        if (position.y < 0) {
+            position.y = 0;
+        }
+
         velosity.scl(1 / dt);
+    }
+
+    public void jump() {
+        velosity.y = 250;
     }
 
     public Vector3 getPosition() {
