@@ -14,7 +14,6 @@ public class PlayState extends State {
 
     private Bird bird;
     private Texture background;
-    private Tube tube;
 
     private Array<Tube> tubes;
 
