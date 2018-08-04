@@ -1,29 +1,32 @@
 package com.gidsor.flappybird.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.gidsor.flappybird.FlappyBird;
 
 public class Bird {
-    public static final int GRAVITY = -15;
-    public static final int MOVEMENT = 100;
+    private static final int GRAVITY = -15;
+    private static final int MOVEMENT = 100;
 
     private Vector3 position;
     private Vector3 velosity;
 
     private Texture bird;
+    private Animation birdAnimation;
 
     private Rectangle bounds;
 
     public Bird(int x, int y) {
         position = new Vector3(x, y, 0);
         velosity = new Vector3(0,0,0);
-        bird = new Texture("bird.png");
-        bounds = new Rectangle(x, y, bird.getWidth(), bird.getHeight());
+        bird = new Texture("birdanimation.png");
+        birdAnimation = new Animation(new TextureRegion(bird), 3, 0.5f);
+        bounds = new Rectangle(x, y, bird.getWidth() / 3, bird.getHeight());
     }
 
     public void update(float dt) {
+        birdAnimation.update(dt);
         if (position.y > 0) {
             velosity.add(0, GRAVITY, 0);
         }
@@ -46,8 +49,8 @@ public class Bird {
         return position;
     }
 
-    public Texture getBird() {
-        return bird;
+    public TextureRegion getBird() {
+        return birdAnimation.getFrame();
     }
 
     public Rectangle getBounds() {
