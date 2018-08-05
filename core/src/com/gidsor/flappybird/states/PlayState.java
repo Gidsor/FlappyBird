@@ -104,7 +104,7 @@ public class PlayState extends State {
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
 
-        font.draw(sb, score.toString(), camera.position.x + camera.viewportWidth / 4, camera.position.y + camera.viewportHeight / 2 - 20);
+        font.draw(sb, score.toString(), camera.position.x + camera.viewportWidth / 2 - 40, camera.position.y + camera.viewportHeight / 2 - 20);
 
         sb.end();
     }

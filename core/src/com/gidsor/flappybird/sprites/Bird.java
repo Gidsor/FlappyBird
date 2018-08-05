@@ -41,7 +41,11 @@ public class Bird {
             position.y = 0;
         }
 
-        velosity.scl(1 / dt);
+        if (dt == 0) {
+            velosity.scl(1);
+        } else {
+            velosity.scl(1 / dt);
+        }
         bounds.setPosition(position.x, position.y);
     }
 
