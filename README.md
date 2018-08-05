@@ -1,5 +1,8 @@
 # FlappyBird
-Клон игры в рамках изучения LibGDX. В разработке.
+Клон игры Flappy Bird в рамках изучения LibGDX.
+## Скриншоты
+<img src="https://user-images.githubusercontent.com/16274235/43684456-26780774-98a9-11e8-8600-cdbae871f7a9.png" width=23%/> <img src="https://user-images.githubusercontent.com/16274235/43684459-37a05a42-98a9-11e8-82d0-9a892d0cce26.png" width=23%/> <img src="https://user-images.githubusercontent.com/16274235/43684462-482c0870-98a9-11e8-955f-c91b36688bf2.png" width=23%/> <img src="https://user-images.githubusercontent.com/16274235/43684465-52f600ee-98a9-11e8-824e-4c5d559bf76f.png" width=23%/>
+
 ## Лицензия
 
     MIT License
