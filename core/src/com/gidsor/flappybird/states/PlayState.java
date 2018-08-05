@@ -1,8 +1,12 @@
 package com.gidsor.flappybird.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -24,6 +28,10 @@ public class PlayState extends State {
 
     private Array<Tube> tubes;
 
+    private Integer score;
+    private BitmapFont font;
+    private Tube currentTube;
+
     public PlayState(GameStateManager gsm) {
         super(gsm);
 
@@ -40,6 +48,15 @@ public class PlayState extends State {
         for (int i = 1; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
         }
+
+        score = 0;
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("flappybirdfont.ttf"));
+        FreeTypeFontParameter parameter = new FreeTypeFontParameter();
+        parameter.size = 48;
+        parameter.characters = "0123456789";
+        font = generator.generateFont(parameter);
+        font.setColor(Color.WHITE);
+        generator.dispose();
     }
 
     @Override
@@ -65,6 +82,9 @@ public class PlayState extends State {
 
             if (tube.collides(bird.getBounds())) {
                 gsm.set(new GameOverState(gsm));
+            } else if (tube.collidesScore(bird.getBounds()) && tube != currentTube) {
+                currentTube = tube;
+                score++;
             }
         }
         camera.update();
@@ -84,6 +104,8 @@ public class PlayState extends State {
         sb.draw(ground, groundPos1.x, groundPos1.y);
         sb.draw(ground, groundPos2.x, groundPos2.y);
 
+        font.draw(sb, score.toString(), camera.position.x + camera.viewportWidth / 4, camera.position.y + camera.viewportHeight / 2 - 20);
+
         sb.end();
     }
 
@@ -92,6 +114,7 @@ public class PlayState extends State {
         background.dispose();
         bird.dispose();
         ground.dispose();
+        font.dispose();
         for (Tube tube : tubes) {
             tube.dispose();
         }

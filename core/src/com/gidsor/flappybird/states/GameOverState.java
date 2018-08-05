@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.gidsor.flappybird.FlappyBird;
 
 public class GameOverState extends State {
-    
     private Texture background;
     private Texture gameover;
 

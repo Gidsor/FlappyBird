@@ -7,9 +7,9 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Random;
 
 public class Tube {
-    public static final int FLUCTUATION = 130;
-    public static final int TUBE_GAP = 100;
-    public static final int LOWEST_OPENING = 120;
+    private static final int FLUCTUATION = 130;
+    private static final int TUBE_GAP = 100;
+    private static final int LOWEST_OPENING = 120;
     public static final int TUBE_WIDTH = 52;
 
     private Texture topTube;
@@ -17,6 +17,7 @@ public class Tube {
 
     private Rectangle boundsTop;
     private Rectangle boundsBot;
+    private Rectangle boundsMid;
 
     private Vector2 posTopTube;
     private Vector2 posBotTube;
@@ -33,6 +34,8 @@ public class Tube {
 
         boundsTop = new Rectangle(posTopTube.x, posTopTube.y, topTube.getWidth(), topTube.getHeight());
         boundsBot = new Rectangle(posBotTube.x, posBotTube.y, bottomTube.getWidth(), bottomTube.getHeight());
+
+        boundsMid = new Rectangle(posTopTube.x + boundsTop.width, posTopTube.y - TUBE_GAP, 0, TUBE_GAP);
     }
 
     public void reposition(float x) {
@@ -41,10 +44,15 @@ public class Tube {
 
         boundsTop.setPosition(posTopTube.x, posTopTube.y);
         boundsBot.setPosition(posBotTube.x, posBotTube.y);
+        boundsMid.setPosition(posTopTube.x + boundsTop.width, posTopTube.y - TUBE_GAP);
     }
 
     public boolean collides(Rectangle player) {
         return player.overlaps(boundsTop) || player.overlaps(boundsBot);
+    }
+
+    public boolean collidesScore(Rectangle player) {
+        return player.overlaps(boundsMid);
     }
 
     public Texture getTopTube() {
